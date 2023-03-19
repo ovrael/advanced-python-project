@@ -15,6 +15,13 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
+
 @app.get("/")
 async def root():
-    return "Advanced Programming in Python project"
+    return {
+        "Title": "Advanced Programming in Python project",
+        "Made by": [
+            "Maciej Baranowski",
+            "Jacek Jendrzejewski"
+        ]
+    }
