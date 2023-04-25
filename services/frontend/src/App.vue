@@ -1,15 +1,27 @@
 <template>
+  <TopNavbar />
+  <LeftNavbar />
   <div id="app">
     <router-view />
   </div>
 </template>
 
+<script>
+// @ is an alias to /src
+import TopNavbar from '@/components/TopNavbar.vue';
+import LeftNavbar from '@/components/LeftNavbar.vue';
+
+export default {
+  components: {
+    TopNavbar,
+    LeftNavbar
+  }
+}
+</script>
+
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  margin-left: 120px;
+  margin-top: 80px;
 }
 </style>

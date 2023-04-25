@@ -20,18 +20,14 @@ export default {
         getMessage() {
             axios.get('/about')
                 .then((res) => {
-                    console.log("About us Axios GET THEN")
-                    console.log(res)
                     this.aboutInfo = res.data;
                 })
                 .catch((error) => {
-                    console.log("About us Axios GET CATCH")
                     console.error(error);
                 });
         },
     },
     created() {
-        console.log("About info created()")
         this.getMessage();
     },
 };
