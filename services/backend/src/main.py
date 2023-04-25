@@ -21,3 +21,13 @@ def home():
 @app.get("/about")
 def about():
     return "This is about us page!"
+
+
+@app.get("/test")
+def test():
+    return "Testing! Hahahaha"
+
+
+@app.get("/test2")
+def test2():
+    return "Testing again!"
