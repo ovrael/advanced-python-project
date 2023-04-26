@@ -30,9 +30,13 @@ The main goal is to make REST API with endpoints containing some machine learnin
 
 [comment]: <img src="./img/concepts/main.png"/>
 
-Concept images: <br>
+Concept: <br>
 <img src="./img/concepts/main.png"/> <br>
 <img src="./img/concepts/imgToText.png"/> <br>
+
+Developing version 1: <br>
+<img src="./img/dev_v1/dev_main.png"/> <br>
+<img src="./img/dev_v1/dev_imgToText.png"/> <br>
 
 ## Technologies
 
