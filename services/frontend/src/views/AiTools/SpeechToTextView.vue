@@ -1,5 +1,5 @@
 <template>
-    <UnderDeveloping site-name="About"></UnderDeveloping>
+    <UnderDeveloping site-name="Speech to text"></UnderDeveloping>
 </template>
   
 <script>
@@ -7,7 +7,7 @@
 import UnderDeveloping from '@/components/UnderDeveloping.vue';
 
 export default {
-    name: 'AboutView',
+    name: 'SpeechToTextView',
     components: {
         UnderDeveloping
     }

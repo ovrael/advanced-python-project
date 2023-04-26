@@ -1,24 +1,19 @@
 <template>
-    <TopNavbar />
-    <LeftNavbar />
+    <SideNavbar />
 
-    <div class="container mainContainer">
-        <div id="app">
-            <router-view />
-        </div>
+    <div id="app" class="container mainContainer">
+        <router-view />
     </div>
 </template>
 
 <script>
 
 // @ is an alias to /src
-import TopNavbar from '@/components/TopNavbar.vue';
-import LeftNavbar from '@/components/LeftNavbar.vue';
+import SideNavbar from '@/components/SideNavbar.vue';
 
 export default {
     components: {
-        TopNavbar,
-        LeftNavbar
+        SideNavbar
     }
 }
 </script>
