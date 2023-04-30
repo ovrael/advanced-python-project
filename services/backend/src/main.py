@@ -24,28 +24,13 @@ def home():
 def about():
     return "This is about us page!"
 
-# @app.post("/uploadfiles/")
-# async def create_upload_files(files: List[UploadFile] = File(...)):
-#     result=""
-#     for file in files:
-#         print(file)
-#         # fpath = os.path.join(
-#         #     STORAGE_PATH, f'{file.filename}'
-#         # )
-#         # async with aiofiles.open(fpath, 'wb') as f:
-#         #     content = await file.read()
-#         #     await f.write(content)
-
-        
-
-#     return {"message": "success"}
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile | None = None):
     if not file:
         return {
             "result": False,
-            "message": "No upload file sent.",
+            "message": "Couldn't process received file.",
             }
     
     return {

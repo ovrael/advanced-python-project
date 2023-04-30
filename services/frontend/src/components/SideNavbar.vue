@@ -3,7 +3,7 @@
         <div class="topOptions">
 
             <router-link to="/" class="logo text-center" @click="changePage('')">
-                <img alt="Vue logo" class="logoImage" src="../assets/aiToolsLogo.png">
+                <img alt="Logo" class="logoImage" src="../assets/img/aiToolsLogo.png">
             </router-link>
 
             <router-link to="/imageToText" active-class="active" class="sideNavOption text-center">
