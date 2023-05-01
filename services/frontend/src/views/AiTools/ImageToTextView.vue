@@ -4,7 +4,7 @@
     <div class="viewContainer">
         <div class="imageUpload container text-center">
             <div class="imagePlaceholder" :class="{ 'imagePlaceholderSquare': !file }">
-                <div v-if="!file" class="imageUploadLabel">
+                <div v-if="!file && !imageUploaded" class="imageUploadLabel">
                     <div class="uploadIconContainer">
                         <img alt="Upload icon" class="uploadIcon" src="../../assets/img/uploadImageIcon.png">
                     </div>
@@ -53,10 +53,22 @@ export default {
         return {
             file: undefined,
             fileUrl: undefined,
-            imageText: undefined
+            imageText: undefined,
+            imageUploaded: false
         }
     },
     methods: {
+        handleFileUpload() {
+            this.file = this.$refs.file.files[0];
+            this.imageUploaded = true;
+            
+            if (!this.file) {
+                return;
+            }
+
+            this.fileUrl = (window.URL || window.webkitURL).createObjectURL(this.file);
+            URL.revokeObjectURL(this.file)
+        },
         submitFile() {
             let formData = new FormData();
 
@@ -68,6 +80,7 @@ export default {
                 }
             }).then(response => {
                 const data = response.data;
+
                 if (data.result == false) {
                     alert(response.message);
                     return;
@@ -80,28 +93,11 @@ export default {
             });
 
         },
-        handleFileUpload() {
-            this.file = this.$refs.file.files[0];
-
-            // // Jeśli użytkownik wybierze plik, zapisz go w zmiennej uploadedFile
-            // if (input.files && input.files[0]) {
-            //     uploadedFile = input.files[0];
-            // }
-            // // Jeśli użytkownik kliknie Anuluj, nie rób nic
-            // else {
-            //     return;
-            // }
-
-            if (this.file === undefined)
-                return;
-
-            this.fileUrl = (window.URL || window.webkitURL).createObjectURL(this.file);
-            URL.revokeObjectURL(this.file)
-        },
         clear() {
             this.file = undefined;
             this.fileUrl = undefined;
             this.imageText = undefined;
+            this.imageUploaded = false;
         }
     }
 }
