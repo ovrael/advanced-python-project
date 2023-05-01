@@ -1,35 +1,40 @@
 <template>
     <UnderDeveloping site-name=""></UnderDeveloping>
 
-    <div class="imageUpload container text-center">
-        <div class="imagePlaceholder" :class="{ 'imagePlaceholderSquare': !file }">
-            <div v-if="!file" class="imageUploadLabel">
-                <div class="uploadIconContainer">
-                    <img alt="Upload icon" class="uploadIcon" src="../../assets/img/uploadImageIcon.png">
+    <div class="viewContainer">
+        <div class="imageUpload container text-center">
+            <div class="imagePlaceholder" :class="{ 'imagePlaceholderSquare': !file }">
+                <div v-if="!file" class="imageUploadLabel">
+                    <div class="uploadIconContainer">
+                        <img alt="Upload icon" class="uploadIcon" src="../../assets/img/uploadImageIcon.png">
+                    </div>
+                    Drag image or click to upload file!
                 </div>
-                Drag image or click to upload file!
-            </div>
-            <div v-else>
-                <div class="uploadedImageContainer">
-                    <img alt="Uploaded image" id="uploadedImagePreview" class="uploadedImagePreview" :src="fileUrl">
+                <div v-else>
+                    <div class="uploadedImageContainer">
+                        <img alt="Uploaded image" id="uploadedImagePreview" class="uploadedImagePreview" :src="fileUrl">
+                    </div>
                 </div>
+                <input type="file" class="imageUploadArea" id="file" ref="file" accept="image/png, image/gif, image/jpeg" v-on:change="handleFileUpload()" />
             </div>
-            <input type="file" class="imageUploadArea" id="file" ref="file" accept="image/png, image/gif, image/jpeg" v-on:change="handleFileUpload()" />
+
+            <div class="container">
+                <div class="row buttonsRow px-0">
+
+                    <div class="col-md-3 col-sm-12 px-0 mt-4">
+                        <button v-on:click="clear()" class="btn btn-danger text-center w-100" type="button">Clear 💀</button>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
+                        <button v-on:click="submitFile()" class="btn btn-success text-center  w-100" type="button">Submit ➣</button>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
-
-        <div class="container">
-            <div class="row buttonsRow px-0">
-
-                <div class="col-md-3 col-sm-12 px-0 mt-4">
-                    <button v-on:click="() => { this.file = undefined }" class="btn btn-danger text-center w-100" type="button">Clear 💀</button>
-                </div>
-
-                <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
-                    <button v-on:click="submitFile()" class="btn btn-success text-center  w-100" type="button">Submit ➣</button>
-                </div>
-
-            </div>
-
+        <div v-if="imageText && file" class="imageText">
+            {{ imageText }}
         </div>
     </div>
 </template>
@@ -47,7 +52,8 @@ export default {
     data() {
         return {
             file: undefined,
-            fileUrl: null,
+            fileUrl: undefined,
+            imageText: undefined
         }
     },
     methods: {
@@ -62,27 +68,40 @@ export default {
                 }
             }).then(response => {
                 const data = response.data;
-
                 if (data.result == false) {
-                    console.warn(response.message);
+                    alert(response.message);
                     return;
                 }
 
-                console.log(data);
+                this.imageText = data.extractedText;
 
             }).catch(error => {
                 console.error(error);
             });
 
         },
-
         handleFileUpload() {
             this.file = this.$refs.file.files[0];
+
+            // // Jeśli użytkownik wybierze plik, zapisz go w zmiennej uploadedFile
+            // if (input.files && input.files[0]) {
+            //     uploadedFile = input.files[0];
+            // }
+            // // Jeśli użytkownik kliknie Anuluj, nie rób nic
+            // else {
+            //     return;
+            // }
+
             if (this.file === undefined)
                 return;
 
             this.fileUrl = (window.URL || window.webkitURL).createObjectURL(this.file);
             URL.revokeObjectURL(this.file)
+        },
+        clear() {
+            this.file = undefined;
+            this.fileUrl = undefined;
+            this.imageText = undefined;
         }
     }
 }
@@ -90,8 +109,24 @@ export default {
 
 <style>
 .imageUpload {
+    /* margin: 0 auto; */
+    /* margin-top: 15%; */
+    display: inline-block;
+}
+
+.viewContainer {
     margin: 0 auto;
     margin-top: 15%;
+    display: flex;
+}
+
+.imageText {
+    display: inline-block;
+    height: 500px;
+    width: 500px;
+    background-color: rgb(30, 30, 30) !important;
+    border: 2px solid rgb(25, 25, 25);
+    padding: 1em;
 }
 
 .imageUploadArea {

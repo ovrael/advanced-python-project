@@ -1,7 +1,8 @@
-from ast import List
-import os
-from fastapi import FastAPI, File, Response, UploadFile, status
+from src.Tools.machineLearning import MachineLearning as ML
+from src.Tools.utils import Utils
+from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 
@@ -14,6 +15,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup_event():
+    logLevels = ["INFO","WARNING","ERROR","NONE" ]
+    print("\n\n ---------------=================== Backend startup ===================---------------")
+    print("-- Name: AI Tools")
+    print("-- Authors: Jacek Jendrzejewski, Maciej Baranowski")
+    print("-- Version: 1.0.0")
+    print("-- Tensorflow log level: " + logLevels[int(os.environ['TF_CPP_MIN_LOG_LEVEL'])])
 
 @app.get("/")
 def home():
@@ -33,8 +42,19 @@ async def create_upload_file(file: UploadFile | None = None):
             "message": "Couldn't process received file.",
             }
     
+    extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
+    if not extension:
+        return {
+            "result": False,
+            "message": "File has incorrect extension. Ensure image is jpg/jpeg/png.",
+            }
+
+    numpyImage = await Utils.convertImageToNumpyArray(file)
+    extractedText = await ML.imageToText(numpyImage)
+
     return {
         "result": True,
-        "message": "File received correctly.",
+        "message": "File received correctly. Searching for text.",
         "filename": file.filename,
+        "extractedText": extractedText
         }
