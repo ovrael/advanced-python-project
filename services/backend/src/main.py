@@ -6,7 +6,7 @@ import os
 
 app = FastAPI()
 
-
+# CORS middleware to allow cross-origin resource sharing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:7000"],
@@ -15,6 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Event handler for startup of the application
 @app.on_event("startup")
 async def startup_event():
     logLevels = ["INFO","WARNING","ERROR","NONE" ]
@@ -33,28 +34,43 @@ def home():
 def about():
     return "This is about us page!"
 
+# API endpoint to upload a file and extract text from it
+@app.post("/extractTextFromImage/")
+async def extract_text_from_image(file: UploadFile | None = None):
+    """
+    Converts image data uploaded in binary format via POST request to a numpy ndarray.
+    Then recognizes text from an image numpy ndarray using the Keras-OCR library.
 
-@app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile | None = None):
+    Args:
+        file: Image data uploaded in binary format via POST request.
+
+    Returns:
+        A JSON data containing the result status of operation, additional message and extracted text.
+    """
+
+    # Check if a file was sent
     if not file:
         return {
             "result": False,
             "message": "Couldn't process received file.",
+            "extractedText": "Couldn't process received file."
             }
     
+    # Check if the file extension is valid
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
     if not extension:
         return {
             "result": False,
             "message": "File has incorrect extension. Ensure image is jpg/jpeg/png.",
+            "extractedText": "File has incorrect extension. Ensure image is jpg/jpeg/png."
             }
 
+    # Convert the image to a numpy array and extract text from it
     numpyImage = await Utils.convertImageToNumpyArray(file)
     extractedText = await ML.imageToText(numpyImage)
 
     return {
         "result": True,
         "message": "File received correctly. Searching for text.",
-        "filename": file.filename,
         "extractedText": extractedText
         }

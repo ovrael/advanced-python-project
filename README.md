@@ -15,6 +15,7 @@
 - [Advanced python project](#advanced-python-project)
   - [Content](#content)
   - [General info](#general-info)
+  - [For developers](#for-developers)
   - [Screenshots](#screenshots)
   - [Technologies](#technologies)
   - [Features](#features)
@@ -26,6 +27,17 @@
 This is our academic project for "Advanced programming in Python" classes. <br>
 The main goal is to make REST API with endpoints containing some machine learning ideas.
 
+
+## For developers
+
+**Requiers** ***Docker***
+
+1. Download repository
+2. Unzip archive to known location
+3. Open terminal
+4. Move to project location (or open terminal in it) e.g. <code>cd C:\Users\\[YOUR_USERNAME]\Downloads\advanced-python-project-master</code>
+5. Run using: <code>docker-compose up -d --build</code>
+6. Open: <code>http://localhost:7000/</code>
 ## Screenshots
 
 [comment]: <img src="./img/concepts/main.png"/>
@@ -36,6 +48,9 @@ Concept: <br>
 
 Developing version 1: <br>
 <img src="./img/dev_v1/dev_main.png"/> <br>
+<img src="./img/dev_v1/dev_imgToText.png"/> <br>
+
+Developing version 2: <br>
 <img src="./img/dev_v1/dev_imgToText.png"/> <br>
 
 ## Technologies

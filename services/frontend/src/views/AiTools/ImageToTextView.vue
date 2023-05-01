@@ -3,7 +3,7 @@
 
     <div class="viewContainer">
         <div class="imageUpload container text-center">
-            <div class="imagePlaceholder" :class="{ 'imagePlaceholderSquare': !file }">
+            <div class="imagePlaceholder" :class="{ 'imagePlaceholderSquare': !file && !imageUploaded }">
                 <div v-if="!file && !imageUploaded" class="imageUploadLabel">
                     <div class="uploadIconContainer">
                         <img alt="Upload icon" class="uploadIcon" src="../../assets/img/uploadImageIcon.png">
@@ -61,7 +61,7 @@ export default {
         handleFileUpload() {
             this.file = this.$refs.file.files[0];
             this.imageUploaded = true;
-            
+
             if (!this.file) {
                 return;
             }
@@ -74,7 +74,7 @@ export default {
 
             formData.append('file', this.file);
 
-            axios.post('/uploadfile', formData, {
+            axios.post('/extractTextFromImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
