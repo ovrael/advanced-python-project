@@ -12,12 +12,10 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
     name: 'HomeView',
     mounted() {
-        console.log('text')
+        console.log('Loaded home view.')
     }
 }
 </script>
@@ -28,7 +26,7 @@ aiTools {
 }
 
 .welcome {
-    color: white;
+    color: rgba(200, 200, 200, 0.9);
     padding-top: 25%;
 }
 

@@ -3,7 +3,7 @@
         <div class="topOptions">
 
             <router-link to="/" class="logo text-center" @click="changePage('')">
-                <img alt="Logo" class="logoImage" src="../assets/img/aiToolsLogo.png">
+                <img alt="Logo" class="logoImage" src="@/assets/img/aiToolsLogo.png">
             </router-link>
 
             <router-link to="/imageToText" active-class="active" class="sideNavOption text-center">
@@ -73,7 +73,7 @@ export default {
     top: 0;
 
     background-color: rgb(15, 15, 15);
-    color: rgb(40, 120, 200);
+    color: #2878c8;
 }
 
 .sideNavOption {

@@ -22,4 +22,17 @@ export default {
 .mainContainer {
     padding-left: 200px !important;
 }
+
+body {
+    background-color: transparent !important;
+}
+
+html {
+    background-image: url('@/assets/img/background.svg') !important;
+    background-size: contain;
+
+    background-size: 100%;
+
+    background-size: 100vw 100vh
+}
 </style>

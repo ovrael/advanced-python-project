@@ -138,6 +138,7 @@ export default {
     height: 0;
     text-align: center;
     line-height: 450px;
+    color: rgba(200, 200, 200, 0.9);
 }
 
 .uploadIcon {
