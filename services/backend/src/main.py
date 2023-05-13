@@ -3,6 +3,8 @@ from src.Tools.utils import Utils
 from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from typing import List
+
 
 app = FastAPI()
 
@@ -74,3 +76,19 @@ async def extract_text_from_image(file: UploadFile | None = None):
         "message": "File received correctly. Searching for text.",
         "extractedText": extractedText
         }
+
+
+@app.post("/detect_objects")
+async def detect_objects(file: UploadFile = UploadFile(...)) -> List[dict]:
+    # Save image to a temporary file
+    with open(file.filename, "wb") as buffer:
+        buffer.write(await file.read())
+    image_path = file.filename
+
+    # Call analyzeImage method to detect objects in the image
+    detected_objects = ML.analyzeImage(image_path)
+
+    print(detected_objects)
+
+    # Return detected objects and their details
+    return detected_objects
