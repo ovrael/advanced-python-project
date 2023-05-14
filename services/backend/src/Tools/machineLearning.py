@@ -14,6 +14,7 @@ import keras.api._v2.keras as keras
 
 
 
+
 class MachineLearning:
 
     @staticmethod
@@ -43,26 +44,26 @@ class MachineLearning:
 
 
     def analyzeImage(image_path: str) -> str:
-        # Load the image and resize it to the input shape of MobileNetV2
+        # Load the image and resize it to the input shape of ResNet50
         img = image.load_img(image_path, target_size=(224, 224))
 
         # Convert the image to a numpy array
         img_array = image.img_to_array(img)
 
-        # Expand the dimensions of the image to match the input shape of MobileNetV2
+        # Expand the dimensions of the image to match the input shape of ResNet50
         img_array = np.expand_dims(img_array, axis=0)
 
-        # Preprocess the image using the preprocess_input function of MobileNetV2
-        img_array = preprocess_input(img_array)
+        # Preprocess the image using the preprocess_input function of ResNet50
+        img_array = keras.applications.resnet50.preprocess_input(img_array)
 
-        # Load the MobileNetV2 model
-        model = keras.applications.mobilenet_v2.MobileNetV2()
+        # Load the ResNet50 model
+        model = keras.applications.resnet50.ResNet50()
 
-        # Make predictions on the image using the MobileNetV2 model
+        # Make predictions on the image using the ResNet50 model
         predictions = model.predict(img_array)
 
-        # Decode the predictions using the decode_predictions function of MobileNetV2
-        decoded_predictions = decode_predictions(predictions, top=3)[0]
+        # Decode the predictions using the decode_predictions function of ResNet50
+        decoded_predictions = keras.applications.resnet50.decode_predictions(predictions, top=6)[0]
 
         # Create a list of detected objects and their scores
         detected_objects = [{'class': class_name, 'score': float(score)} for (_, class_name, score) in decoded_predictions]
@@ -75,4 +76,5 @@ class MachineLearning:
 
         # Return the detected objects and their scores
         return detected_objects
+
 
