@@ -1,10 +1,11 @@
 from src.Tools.machineLearning import MachineLearning as ML
 from src.Tools.utils import Utils
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from typing import List
 
+import tempfile
 
 app = FastAPI()
 
@@ -92,3 +93,19 @@ async def detect_objects(file: UploadFile = UploadFile(...)) -> List[dict]:
 
     # Return detected objects and their details
     return detected_objects
+
+@app.post("/transcribe_audio")
+async def transcribe_audio(file: UploadFile = UploadFile(...)) -> str:
+    # Save audio to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False) as buffer:
+        buffer.write(await file.read())
+        audio_path = buffer.name
+
+    # Call transcribeAudio method to transcribe the audio
+    transcribed_text = ML.transcribeAudio(audio_path)
+
+    # Remove temporary file
+    os.remove(audio_path)
+
+    # Return the transcribed text
+    return transcribed_text

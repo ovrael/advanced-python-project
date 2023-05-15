@@ -12,7 +12,7 @@ from keras.applications.mobilenet_v2 import preprocess_input, decode_predictions
 import keras.utils as image
 import keras.api._v2.keras as keras
 
-
+import speech_recognition as sr
 
 
 class MachineLearning:
@@ -77,4 +77,26 @@ class MachineLearning:
         # Return the detected objects and their scores
         return detected_objects
 
+    def transcribeAudio(audio_file: str) -> str:
+        # Create a recognizer object
+        r = sr.Recognizer()
 
+        # Load the audio file
+        with sr.AudioFile(audio_file) as source:
+            # Adjust for ambient noise
+            r.adjust_for_ambient_noise(source)
+
+            # Read the entire audio file
+            audio = r.record(source, duration=3000)
+
+        # Use the recognizer to transcribe the audio
+        try:
+            text = r.recognize_google(audio, language='en-US')
+            print(text)
+            return text
+        except sr.UnknownValueError:
+            print("Speech recognition could not understand audio")
+        except sr.RequestError as e:
+            print(f"Could not request results from Google Speech Recognition service; {e}")
+
+        return ""

@@ -76,3 +76,4 @@ uvicorn==0.20.0
 validators==0.20.0
 Werkzeug==2.3.2
 wrapt==1.14.1
+SpeechRecognition==3.10.0
