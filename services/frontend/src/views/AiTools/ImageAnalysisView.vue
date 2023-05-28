@@ -32,6 +32,8 @@
                 </div>
 
             </div>
+
+            <div class="loading" v-if="loading">Loading...</div>
         </div>
         
         <div v-if="detectedObjects.length > 0 && file" class="detectedObjects">
@@ -61,7 +63,8 @@ export default {
             file: undefined,
             fileUrl: undefined,
             detectedObjects: [],
-            imageUploaded: false
+            imageUploaded: false,
+            loading: false
         }
     },
     methods: {
@@ -80,6 +83,7 @@ export default {
             let formData = new FormData();
 
             formData.append('file', this.file);
+            this.loading = true;
 
             axios.post('/detect_objects', formData, {
                 headers: {
@@ -94,9 +98,11 @@ export default {
                 }
 
                 this.detectedObjects = response.data;
+                this.loading = false;
 
             }).catch(error => {
                 console.error(error);
+                this.loading = false;
             });
 
         },
@@ -115,6 +121,7 @@ export default {
 <style>
 
 @import '../../styles/buttons_styles.css';
+@import '../../styles/loading_animation.css';
 
 .imageUpload {
     /* margin: 0 auto; */

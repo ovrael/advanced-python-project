@@ -15,7 +15,13 @@
                       <audio controls id="uploadedAudioPreview" class="uploadedAudioPreview" :src="fileUrl"></audio>
                   </div>
               </div>
-              <input type="file" class="audioUploadArea" id="file" ref="file" accept="audio/*" v-on:change="handleFileUpload()" />
+              
+              <div> class="audioUploadAreaContainer">
+                <label for="file" class="audioUploadBox">
+                    Click to Select Audio File
+                    <input type="file" id="file" ref="file" accept="audio/*" v-on:change="handleFileUpload()" style="display: none;" />
+                </label>
+              </div>
               
           </div>
 
@@ -30,9 +36,12 @@
                     <button v-on:click="submitFile()" class="btn btn-success text-center w-100 button_border_animation" type="button">Submit ➣</button>
                   </div>
 
-              </div>
+                  
+
+            </div>
 
           </div>
+          <div class="loading" v-if="loading">Loading...</div>
       </div>
       <div v-if="audioText && file" class="audioText">
         <h2>Transcribed audio:</h2>
@@ -56,7 +65,8 @@ export default {
           file: undefined,
           fileUrl: undefined,
           audioText: undefined,
-          audioUploaded: false
+          audioUploaded: false,
+          loading: false,
       }
   },
   methods: {
@@ -72,14 +82,16 @@ export default {
           URL.revokeObjectURL(this.file)
       },
       submitFile() {
+          
           let formData = new FormData();
 
           formData.append('file', this.file);
-
+          this.loading = true;
           axios.post('/transcribe_audio', formData, {
               headers: {
                   'Content-Type': 'multipart/form-data'
               }
+              
           }).then(response => {
               const data = response.data;
 
@@ -90,8 +102,11 @@ export default {
 
               this.audioText = response.data;
 
+              this.loading = false;
+
           }).catch(error => {
               console.error(error);
+              this.loading = false;
           });
 
       },
@@ -100,16 +115,8 @@ export default {
           this.fileUrl = undefined;
           this.audioText = undefined;
           this.audioUploaded = false;
-      },
+      }
 
-      startAnimation(event) {
-      const button = event.target;
-      button.classList.add('animate');
-    },
-    stopAnimation(event) {
-      const button = event.target;
-      button.classList.remove('animate');
-    }
   }
 }
 </script>
@@ -117,6 +124,22 @@ export default {
 <style>
 
 @import '../../styles/buttons_styles.css';
+@import '../../styles/loading_animation.css';
+
+
+.audioUploadAreaContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.audioUploadBox {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  cursor: pointer;
+  color:white;
+}
 
 
 .imageUpload {

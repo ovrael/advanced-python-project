@@ -32,6 +32,7 @@
                 </div>
 
             </div>
+            <div class="loading" v-if="loading">Loading...</div>
         </div>
         <div v-if="imageText && file" class="imageText">
             {{ imageText }}
@@ -54,7 +55,8 @@ export default {
             file: undefined,
             fileUrl: undefined,
             imageText: undefined,
-            imageUploaded: false
+            imageUploaded: false,
+            loading: false
         }
     },
     methods: {
@@ -73,6 +75,7 @@ export default {
             let formData = new FormData();
 
             formData.append('file', this.file);
+            this.loading = true;
 
             axios.post('/extractTextFromImage', formData, {
                 headers: {
@@ -87,9 +90,11 @@ export default {
                 }
 
                 this.imageText = data.extractedText;
+                this.loading = false;
 
             }).catch(error => {
                 console.error(error);
+                this.loading = false;
             });
 
         },
@@ -106,6 +111,7 @@ export default {
 <style>
 
 @import '../../styles/buttons_styles.css';
+@import '../../styles/loading_animation.css';
 
 
 .imageUpload {
