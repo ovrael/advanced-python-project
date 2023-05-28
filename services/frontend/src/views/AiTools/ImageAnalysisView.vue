@@ -22,11 +22,11 @@
                 <div class="row buttonsRow px-0">
 
                     <div class="col-md-3 col-sm-12 px-0 mt-4">
-                        <button v-on:click="clear()" class="btn btn-danger text-center w-100" type="button">Clear 💀</button>
+                        <button v-on:click="clear()" class="btn btn-danger text-center w-100 button_border_animation" type="button">Clear 💀</button>
                     </div>
 
                     <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
-                        <button v-on:click="submitFile()" class="btn btn-success text-center  w-100" type="button">Submit ➣</button>
+                        <button v-on:click="submitFile()" class="btn btn-success text-center w-100 button_border_animation" type="button">Submit ➣</button>
                     </div>
 
                 </div>
@@ -113,6 +113,9 @@ export default {
 </script>
 
 <style>
+
+@import '../../styles/buttons_styles.css';
+
 .imageUpload {
     /* margin: 0 auto; */
     /* margin-top: 15%; */

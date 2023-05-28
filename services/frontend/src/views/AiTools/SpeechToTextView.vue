@@ -23,11 +23,11 @@
               <div class="row buttonsRow px-0">
 
                   <div class="col-md-3 col-sm-12 px-0 mt-4">
-                      <button v-on:click="clear()" class="btn btn-danger text-center w-100" type="button">Clear 💀</button>
+                    <button v-on:click="clear()" class="btn btn-danger text-center w-100 button_border_animation" type="button">Clear 💀</button>
                   </div>
 
                   <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
-                      <button v-on:click="submitFile()" class="btn btn-success text-center  w-100" type="button">Submit ➣</button>
+                    <button v-on:click="submitFile()" class="btn btn-success text-center w-100 button_border_animation" type="button">Submit ➣</button>
                   </div>
 
               </div>
@@ -100,12 +100,25 @@ export default {
           this.fileUrl = undefined;
           this.audioText = undefined;
           this.audioUploaded = false;
-      }
+      },
+
+      startAnimation(event) {
+      const button = event.target;
+      button.classList.add('animate');
+    },
+    stopAnimation(event) {
+      const button = event.target;
+      button.classList.remove('animate');
+    }
   }
 }
 </script>
 
 <style>
+
+@import '../../styles/buttons_styles.css';
+
+
 .imageUpload {
     /* margin: 0 auto; */
     /* margin-top: 15%; */
@@ -197,6 +210,7 @@ export default {
     width: 500px;
     margin: 0 auto !important;
 }
+
 
 
 @media screen and (min-width: 400px) and (max-width: 768px) {

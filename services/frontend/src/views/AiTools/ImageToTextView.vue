@@ -21,13 +21,13 @@
             <div class="container">
                 <div class="row buttonsRow px-0">
 
-                    <div class="col-md-3 col-sm-12 px-0 mt-4">
-                        <button v-on:click="clear()" class="btn btn-danger text-center w-100" type="button">Clear 💀</button>
-                    </div>
+                  <div class="col-md-3 col-sm-12 px-0 mt-4">
+                    <button v-on:click="clear()" class="btn btn-danger text-center w-100 button_border_animation" type="button">Clear 💀</button>
+                  </div>
 
-                    <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
-                        <button v-on:click="submitFile()" class="btn btn-success text-center  w-100" type="button">Submit ➣</button>
-                    </div>
+                  <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
+                    <button v-on:click="submitFile()" class="btn btn-success text-center w-100 button_border_animation" type="button">Submit ➣</button>
+                  </div>
 
                 </div>
 
@@ -104,6 +104,10 @@ export default {
 </script>
 
 <style>
+
+@import '../../styles/buttons_styles.css';
+
+
 .imageUpload {
     /* margin: 0 auto; */
     /* margin-top: 15%; */
@@ -123,6 +127,7 @@ export default {
     background-color: rgb(30, 30, 30) !important;
     border: 2px solid rgb(25, 25, 25);
     padding: 1em;
+    color: white;
 }
 
 .imageUploadArea {
