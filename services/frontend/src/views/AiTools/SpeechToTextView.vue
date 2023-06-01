@@ -43,7 +43,7 @@
           </div>
           <div class="loading" v-if="loading">Loading...</div>
       </div>
-      <div v-if="audioText && file" class="audioText">
+      <div v-if="audioText && file" class="audioText fade-in">
         <h2>Transcribed audio:</h2>
           {{ audioText }}
       </div>
@@ -125,6 +125,7 @@ export default {
 
 @import '../../styles/buttons_styles.css';
 @import '../../styles/loading_animation.css';
+@import '../../styles/output_boxes_animations.css';
 
 
 .audioUploadAreaContainer {

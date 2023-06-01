@@ -36,7 +36,7 @@
             <div class="loading" v-if="loading">Loading...</div>
         </div>
         
-        <div v-if="detectedObjects.length > 0 && file" class="detectedObjects">
+        <div v-if="detectedObjects.length > 0 && file" class="detectedObjects fade-in">
             <h2>Detected Objects:</h2>
                 <ul>
                     <li v-for="object in detectedObjects" :key="object.class">
@@ -122,6 +122,7 @@ export default {
 
 @import '../../styles/buttons_styles.css';
 @import '../../styles/loading_animation.css';
+@import '../../styles/output_boxes_animations.css';
 
 .imageUpload {
     /* margin: 0 auto; */

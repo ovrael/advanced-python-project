@@ -34,7 +34,7 @@
             </div>
             <div class="loading" v-if="loading">Loading...</div>
         </div>
-        <div v-if="imageText && file" class="imageText">
+        <div v-if="imageText && file" class="imageText fade-in">
             {{ imageText }}
         </div>
     </div>
@@ -112,6 +112,7 @@ export default {
 
 @import '../../styles/buttons_styles.css';
 @import '../../styles/loading_animation.css';
+@import '../../styles/output_boxes_animations.css';
 
 
 .imageUpload {
