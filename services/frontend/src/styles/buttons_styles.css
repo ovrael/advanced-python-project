@@ -39,6 +39,12 @@
     
   }
 
+  .button_border_animation:active {
+    background-color: #333 !important;
+  }
+  
+  
+
 
 
 
