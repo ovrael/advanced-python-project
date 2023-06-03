@@ -40,12 +40,15 @@
         </div>
         
         <div v-if="detectedObjects.length > 0 && file" class="detectedObjects fade-in">
+             <img :src="require('@/assets/img/Image_Analysis.svg')" alt="Loading Icon" />
             <h2>Detected Objects:</h2>
+           
                 <ul>
                     <li v-for="object in detectedObjects" :key="object.class">
                     Object: {{ object.class }} || Score: {{ object.score }}
                     </li>
                 </ul>
+            
         </div>
     </div>
 
@@ -139,14 +142,23 @@ export default {
     display: flex;
 }
 
-.detectedObjects{
-    display: inline-block;
+.detectedObjects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 500px;
     width: 500px;
     background-color: rgb(30, 30, 30) !important;
     border: 2px solid rgb(255, 255, 255);
     padding: 1em;
     color: white;
+}
+
+.detectedObjects img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+    height: auto;
 }
 
 .imageUploadArea {

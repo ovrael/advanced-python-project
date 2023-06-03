@@ -38,6 +38,8 @@
             </div>
         </div>
         <div v-if="imageText && file" class="imageText fade-in">
+            <img :src="require('@/assets/img/Image_To_Text.svg')" alt="Loading Icon" />
+            <h2>Extracted text:</h2>
             {{ imageText }}
         </div>
     </div>
@@ -131,13 +133,22 @@ export default {
 }
 
 .imageText {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 500px;
     width: 500px;
     background-color: rgb(30, 30, 30) !important;
-    border: 2px solid rgb(25, 25, 25);
+    border: 2px solid rgb(255, 255, 255);
     padding: 1em;
     color: white;
+}
+
+.imageText img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+    height: auto;
 }
 
 .imageUploadArea {

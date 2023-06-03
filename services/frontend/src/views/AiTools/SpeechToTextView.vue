@@ -48,6 +48,7 @@
 
         </div>
         <div v-if="audioText && file" class="audioText fade-in">
+            <img :src="require('@/assets/img/Speech_To_Text.svg')" alt="Loading Icon" />
             <h2>Transcribed audio:</h2>
             {{ audioText }}
         </div>
@@ -159,13 +160,22 @@ export default {
 }
 
 .audioText {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     height: 500px;
     width: 500px;
     background-color: rgb(30, 30, 30) !important;
     border: 2px solid rgb(255, 255, 255);
     padding: 1em;
     color: white;
+}
+
+.audioText img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+    height: auto;
 }
 
 .imageUploadArea {
