@@ -1,53 +1,53 @@
 <template>
-  <UnderDeveloping site-name=""></UnderDeveloping>
+    <UnderDeveloping site-name=""></UnderDeveloping>
 
-  <div class="viewContainer">
-      <div class="audioUpload container text-center">
-          <div class="audioPlaceholder">
-              <div v-if="!file" class="audioUploadLabel">
-                  <div class="uploadIconContainer">
-                    <img alt="Upload icon" class="uploadIcon" src="../../assets/img/uploadImageIcon.png">
-                  </div>
-                  Drag audio or click to upload file!
-              </div>
-              <div v-else>
-                  <div class="uploadedAudioContainer">
-                      <audio controls id="uploadedAudioPreview" class="uploadedAudioPreview" :src="fileUrl"></audio>
-                  </div>
-              </div>
-              
-              <div> class="audioUploadAreaContainer">
-                <label for="file" class="audioUploadBox">
-                    Click to Select Audio File
-                    <input type="file" id="file" ref="file" accept="audio/*" v-on:change="handleFileUpload()" style="display: none;" />
-                </label>
-              </div>
-              
-          </div>
+    <div class="viewContainer">
+        <div class="audioUpload container text-center">
+            <div class="audioPlaceholder">
+                <div v-if="!file" class="audioUploadLabel">
+                    <div class="uploadIconContainer">
+                        <img alt="Upload icon" class="uploadIcon" src="../../assets/img/uploadImageIcon.png">
+                    </div>
+                    Drag audio or click to upload file!
+                </div>
+                <div v-else>
+                    <div class="uploadedAudioContainer">
+                        <audio controls id="uploadedAudioPreview" class="uploadedAudioPreview" :src="fileUrl"></audio>
+                    </div>
+                </div>
 
-          <div class="container">
-              <div class="row buttonsRow px-0">
-
-                  <div class="col-md-3 col-sm-12 px-0 mt-4">
-                    <button v-on:click="clear()" class="btn btn-danger text-center w-100 button_border_animation" type="button">Clear 💀</button>
-                  </div>
-
-                  <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
-                    <button v-on:click="submitFile()" class="btn btn-success text-center w-100 button_border_animation" type="button">Submit ➣</button>
-                  </div>
-
-                  
+                <div class="audioUploadAreaContainer">
+                    <label for="file" class="audioUploadBox">
+                        Click to Select Audio File
+                        <input type="file" id="file" ref="file" accept="audio/*" v-on:change="handleFileUpload()" style="display: none;" />
+                    </label>
+                </div>
 
             </div>
 
-          </div>
-          <div class="loading" v-if="loading">Loading...</div>
-      </div>
-      <div v-if="audioText && file" class="audioText fade-in">
-        <h2>Transcribed audio:</h2>
-          {{ audioText }}
-      </div>
-  </div>
+            <div class="container">
+                <div class="row buttonsRow px-0">
+
+                    <div class="col-md-3 col-sm-12 px-0 mt-4">
+                        <button v-on:click="clear()" class="btn btn-danger text-center w-100 button_border_animation" type="button">Clear 💀</button>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 offset-md-6 px-0 mt-4">
+                        <button v-on:click="submitFile()" class="btn btn-success text-center w-100 button_border_animation" type="button">Submit ➣</button>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <div class="loading" v-if="loading">Loading...</div>
+        </div>
+        <div v-if="audioText && file" class="audioText fade-in">
+            <h2>Transcribed audio:</h2>
+            {{ audioText }}
+        </div>
+    </div>
 </template>
 
 <script>
@@ -56,90 +56,89 @@ import UnderDeveloping from '@/components/UnderDeveloping.vue';
 import axios from 'axios'
 
 export default {
-  name: 'SpeechToTextView',
-  components: {
-      UnderDeveloping
-  },
-  data() {
-      return {
-          file: undefined,
-          fileUrl: undefined,
-          audioText: undefined,
-          audioUploaded: false,
-          loading: false,
-      }
-  },
-  methods: {
-      handleFileUpload() {
-          this.file = this.$refs.file.files[0];
-          this.audioUploaded = true;
+    name: 'SpeechToTextView',
+    components: {
+        UnderDeveloping
+    },
+    data() {
+        return {
+            file: undefined,
+            fileUrl: undefined,
+            audioText: undefined,
+            audioUploaded: false,
+            loading: false,
+        }
+    },
+    methods: {
+        handleFileUpload() {
+            this.file = this.$refs.file.files[0];
+            this.audioUploaded = true;
 
-          if (!this.file) {
-              return;
-          }
+            if (!this.file) {
+                return;
+            }
 
-          this.fileUrl = (window.URL || window.webkitURL).createObjectURL(this.file);
-          URL.revokeObjectURL(this.file)
-      },
-      submitFile() {
-          
-          let formData = new FormData();
+            this.fileUrl = (window.URL || window.webkitURL).createObjectURL(this.file);
+            URL.revokeObjectURL(this.file)
+        },
+        submitFile() {
 
-          formData.append('file', this.file);
-          this.loading = true;
-          axios.post('/transcribe_audio', formData, {
-              headers: {
-                  'Content-Type': 'multipart/form-data'
-              }
-              
-          }).then(response => {
-              const data = response.data;
+            let formData = new FormData();
 
-              if (!data) {
-                  alert("An error occurred while transcribing the audio.");
-                  return;
-              }
+            formData.append('file', this.file);
+            this.loading = true;
+            axios.post('/transcribe_audio', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
 
-              this.audioText = response.data;
+            }).then(response => {
+                const data = response.data;
 
-              this.loading = false;
+                if (!data) {
+                    alert("An error occurred while transcribing the audio.");
+                    return;
+                }
 
-          }).catch(error => {
-              console.error(error);
-              this.loading = false;
-          });
+                this.audioText = response.data;
 
-      },
-      clear() {
-          this.file = undefined;
-          this.fileUrl = undefined;
-          this.audioText = undefined;
-          this.audioUploaded = false;
-      }
+                this.loading = false;
 
-  }
+            }).catch(error => {
+                console.error(error);
+                this.loading = false;
+            });
+
+        },
+        clear() {
+            this.file = undefined;
+            this.fileUrl = undefined;
+            this.audioText = undefined;
+            this.audioUploaded = false;
+        }
+
+    }
 }
 </script>
 
 <style>
-
 @import '../../styles/buttons_styles.css';
 @import '../../styles/loading_animation.css';
 @import '../../styles/output_boxes_animations.css';
 
 
 .audioUploadAreaContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .audioUploadBox {
-  border: 2px dashed #ccc;
-  padding: 20px;
-  cursor: pointer;
-  color:white;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    cursor: pointer;
+    color: white;
 }
 
 
@@ -155,7 +154,7 @@ export default {
     display: flex;
 }
 
-.audioText{
+.audioText {
     display: inline-block;
     height: 500px;
     width: 500px;
