@@ -117,6 +117,7 @@ export default {
             this.fileUrl = undefined;
             this.detectedObjects = [];
             this.imageUploaded = false;
+            this.loading = false
         }
 
         

@@ -120,6 +120,7 @@ export default {
             this.fileUrl = undefined;
             this.audioText = undefined;
             this.audioUploaded = false;
+            this.loading = false
         }
 
     }

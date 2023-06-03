@@ -108,6 +108,7 @@ export default {
             this.fileUrl = undefined;
             this.imageText = undefined;
             this.imageUploaded = false;
+            this.loading = false
         }
     }
 }
