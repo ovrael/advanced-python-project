@@ -32,7 +32,10 @@
                 </div>
 
             </div>
-            <div class="loading" v-if="loading">Loading...</div>
+            <div class="loading" v-if="loading">
+                <p>Loading...</p>
+                <img v-if="loading" :src="require('@/assets/img/Image_To_Text.svg')" alt="Loading Icon" />
+            </div>
         </div>
         <div v-if="imageText && file" class="imageText fade-in">
             {{ imageText }}

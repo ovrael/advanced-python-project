@@ -33,7 +33,10 @@
 
             </div>
 
-            <div class="loading" v-if="loading">Loading...</div>
+            <div class="loading" v-if="loading">
+                <p>Loading...</p>
+                <img v-if="loading" :src="require('@/assets/img/Image_Analysis.svg')" alt="Loading Icon" />
+            </div>
         </div>
         
         <div v-if="detectedObjects.length > 0 && file" class="detectedObjects fade-in">

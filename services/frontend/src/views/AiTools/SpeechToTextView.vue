@@ -6,7 +6,7 @@
             <div class="audioPlaceholder">
                 <div v-if="!file" class="audioUploadLabel">
                     <div class="uploadIconContainer">
-                        <img alt="Upload icon" class="uploadIcon" src="../../assets/img/uploadImageIcon.png">
+                        <img alt="Upload icon" class="uploadIcon" src="../../assets/img/Upload_Audio_File_Icon.svg">
                     </div>
                     Drag audio or click to upload file!
                 </div>
@@ -41,7 +41,11 @@
                 </div>
 
             </div>
-            <div class="loading" v-if="loading">Loading...</div>
+            <div class="loading" v-if="loading">
+                <p>Loading...</p>
+                <img v-if="loading" :src="require('@/assets/img/Speech_To_Text.svg')" alt="Loading Icon" />
+            </div>
+
         </div>
         <div v-if="audioText && file" class="audioText fade-in">
             <h2>Transcribed audio:</h2>
