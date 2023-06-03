@@ -15,5 +15,8 @@ services:
       - './services/frontend:/app'
       - '/app/node_modules'
     ports:
-      - 7000:7000
+      - 30222:30222
+    expose:
+      - "30222"
+
     command: npm run serve

@@ -12,7 +12,7 @@ app = FastAPI()
 # CORS middleware to allow cross-origin resource sharing
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:7000"],
+    allow_origins=["http://localhost:30222"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
